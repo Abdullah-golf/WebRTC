@@ -1,4 +1,55 @@
 # 🚀 安装与运行步骤 (Installation & Usage)
+graph TD
+    %% 定义样式
+    classDef hardware fill:#f9f,stroke:#333,stroke-width:2px,color:black;
+    classDef process fill:#d4edda,stroke:#28a745,stroke-width:2px,color:black;
+    classDef server fill:#cce5ff,stroke:#007bff,stroke-width:2px,color:black;
+    classDef network fill:#fff3cd,stroke:#ffc107,stroke-width:2px,stroke-dasharray: 5 5,color:black;
+    classDef client fill:#e2e3e5,stroke:#6c757d,stroke-width:2px,color:black;
+
+    %% --- 机器人端 (Ubuntu) ---
+    subgraph Robot ["🤖 机器人终端 (Ubuntu Localhost)"]
+        direction TB
+        Camera(📷 USB 摄像头):::hardware
+        FFmpeg(⚙️ FFmpeg 编码器):::process
+        Go2RTC(📡 Go2RTC 流媒体服务器):::server
+        Frpc(🚀 Sakura Frp 客户端):::process
+
+        %% 内部数据流
+        Camera --"1. V4L2 采集 (MJPEG原始流)"--> FFmpeg
+        FFmpeg --"2. H.264 实时转码 (RTSP协议)"--> Go2RTC
+        Go2RTC --"3. 暴露本地端口 (HTTP :1984)"--> Frpc
+    end
+
+    %% --- 网络传输层 ---
+    subgraph Network ["☁️ 公网 / 传输隧道"]
+        Frps(🌐 Sakura Frp 云端服务器):::network
+        Internet((互联网公网)):::network
+
+        %% 隧道连接
+        Frpc ==="4. 建立 TCP 长连接隧道 (加密封装)"===> Frps
+    end
+
+    %% --- 用户端 ---
+    subgraph User ["👤 远程用户端 (PC/Mobile)"]
+        Browser(🖥️ 浏览器 / WebUI):::client
+
+        %% 用户访问
+        Internet --"5. 公网请求 (http://cn-js-x...:端口)"--> Frps
+        Frps --"6. 转发请求 & 返回视频流"--> Internet
+        Internet --> Browser
+        Browser --"7. MSE 解码播放 (低延迟 TCP)"--> Browser
+    end
+
+    %% 链接样式
+    linkStyle 0 stroke-width:2px,fill:none,stroke:black;
+    linkStyle 1 stroke-width:2px,fill:none,stroke:black;
+    linkStyle 2 stroke-width:2px,fill:none,stroke:black;
+    linkStyle 3 stroke-width:4px,fill:none,stroke:#ffc107;
+    linkStyle 4 stroke-width:2px,fill:none,stroke:blue;
+    linkStyle 5 stroke-width:2px,fill:none,stroke:blue;
+    linkStyle 6 stroke-width:2px,fill:none,stroke:blue;
+    linkStyle 7 stroke-width:2px,fill:none,stroke:red;
 # go2rtc
 ## 步骤 1: 下载 go2rtc
 根据你的系统架构下载对应的二进制文件。
