@@ -60,6 +60,9 @@ cd ~/Desktop
 # 下载 (这是 Sakura Frp 的官方客户端，叫 nyale 或 frpc)
 sudo bash -c ". <(wget -O- https://doc.natfrp.com/launcher.sh)"
 ```
+   - 要求输入访问密钥
+     <img width="359" height="314" alt="image" src="https://github.com/user-attachments/assets/5de132c5-0205-413e-95b3-f73deb611c0f" />
+   - 要求设定远程管理密码
    - 有关命令
 ```Bash
 systemctl enable --now natfrp.service
