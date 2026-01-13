@@ -51,6 +51,7 @@ streams:
    - 远程管理： 双击节点启动
 
 ## 第二步：在机器人上安装客户端（Ubuntu 端操作）
+具体可以参考：https://doc.natfrp.com/launcher/usage.html
    - 下载客户端： Sakura Frp 官方提供了一键安装脚本
 ```Bash
 # 进入下载目录
