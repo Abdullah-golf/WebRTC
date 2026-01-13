@@ -84,3 +84,6 @@ streams:
 ## 第四步：公网访问
 拿起你的手机或另一台电脑。
 打开浏览器，输入 Sakura Frp 告诉你的那个地址： http://cn-js-1.natfrp.cloud:34567 (注意改成自己的地址)。
+会要求访问密码，在隧道刘表可见。
+<img width="1121" height="234" alt="image" src="https://github.com/user-attachments/assets/b2021fdf-ef6f-4c66-9a47-7a27ab6ff21b" />
+
