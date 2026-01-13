@@ -1,0 +1,9 @@
+streams:
+  #camera_usb: exec:ffmpeg -hide_banner -f v4l2 -input_format mjpeg -video_size 640x480 -i /dev/video0 -c:v libx264 -g 30 -preset ultrafast -tune zerolatency -b:v 2000k -f rtsp {output}
+  camera_usb: exec:ffmpeg -hide_banner -f v4l2 -input_format mjpeg -video_size 2560x1440 -i /dev/video0 -c:v libx264 -g 30 -preset superfast -tune zerolatency -b:v 6000k -f rtsp {output}
+    
+    
+#webrtc:
+#  listen: ":8555"  # 强制监听在 8555 端口，与 FRP 里的端口一致
+#  candidates:
+#    - 115.190.219.97:8555 # 【核心】填你的云服务器公网IP + 端口
